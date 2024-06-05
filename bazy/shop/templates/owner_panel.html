@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{% load template %}
+{% if request.user|has_group:"owner" %} 
+    <a class="btn btn-primary" href="/">Go back to store preview</a>
+{% else %}
+{% endif %}
+
+        <div class="mw6 center pa3 sans-serif">
+
+        {% for key, value in recommendation.items %}
+
+            <div class="pa2 mb3 striped--near-white">
+
+                <div class="pl2">
+
+                    <p class="mb2">Month : {{ key }} </p>
+                    Hich seasonal demand:
+                    <div class="mw9 center pa3 sans-serif">
+                    {% for item in value %}
+                    <div class="pa2 mb3 striped--near-white">
+                    <div class="pl2">
+                        <p class="mb2">
+                        
+                            <form action='list/{{ item.product }}' method='PUT'>
+                            {%csrf_token%}
+                            {{ form }}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type='submit'>List</button>
+                            </form></p>
+                        <p class="mb2">{{ item.name }} </p>
+                        <p><a href="{{item.amazon_url}}"><img src="{{item.photo_url}}" alt=""></a></p>
+                        <p>{{item.product}}</p>
+                        
+                    </div>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+                    
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+        </div>
+
+{% endblock %}

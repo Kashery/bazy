@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{% load template %}
+{% if request.user|has_group:"owner" %} 
+    <a class="btn btn-primary" href="/owner_panel">Go to owner panel.</a>
+{% else %}
+{% endif %}
+
+        <div class="mw6 center pa3 sans-serif">
+
+        {% for p in products %}
+        {%if p.listed%}
+            <div class="pa2 mb3 striped--near-white">
+
+                <div class="pl2">
+
+                    <p class="mb2">
+                        
+                        <form action='purchase/{{ p.product_id }}' method='POST'>
+                        {%csrf_token%}
+                        {{ form }}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button type='submit'>Buy now</button>
+                        </form></p>
+                    <p class="mb2">{{ p.name }}</p>
+                    <p><img src="{{p.photo_url}}" alt=""></p>
+
+                </div>
+
+            </div>
+        {%endif%}
+        {% endfor %}
+
+        </div>
+
+{% endblock %}
