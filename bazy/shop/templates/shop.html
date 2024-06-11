@@ -5,6 +5,7 @@
 {% if request.user|has_group:"owner" %} 
     <a class="btn btn-primary" href="/owner_panel">Go to owner panel.</a>
 {% else %}
+    <a class="btn btn-primary" href="/order_history">Go to order history.</a>
 {% endif %}
 
         <div class="mw6 center pa3 sans-serif">
@@ -22,6 +23,7 @@
                         {{ form }}
                         <input type="hidden" name="next" value="{{ request.path }}">
                         <button type='submit'>Buy now</button>
+                        <p class="mb2">{{ p.price }} USD</p>
                         </form></p>
                     <p class="mb2">{{ p.name }}</p>
                     <p><img src="{{p.photo_url}}" alt=""></p>

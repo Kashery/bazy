@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{% load template %}
+
+    <a class="btn btn-primary" href="/">Go back to store preview</a>
+
+
+        <div class="mw6 center pa3 sans-serif">
+        {% for item in orders %}
+            <div class="pa2 mb3 striped--near-white">
+
+                <div class="pl2">
+
+                    <p class="mb2">Month : {{ key }} </p>
+                    Hich seasonal demand:
+                    <div class="mw9 center pa3 sans-serif">
+                    <div class="pa2 mb3 striped--near-white">
+                    <div class="pl2">
+                        <p>Product id: {{item.product.product_id}}</p>
+                        <p class="mb2">
+                            
+                            <form action='review/{{ item.order_id }}' method='POST'>
+                            {%csrf_token%}
+                            {{ form }}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <input type="number" id="rating" name="rating" min="1" max="5" value="3"><br><br>
+                            <input type="text" id="review" name="review"><br><br>
+                            <button type='submit'>Review</button>
+                            </form></p>
+                        <p class="mb2">Order id: {{ item.order_id }} </p>
+                        
+                        
+                    </div>
+                    </div>
+                </div>
+                    
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+        </div>
+
+{% endblock %}

@@ -121,7 +121,7 @@ class Order(models.Model):
     user = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='user', blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'order'
 
 
@@ -130,19 +130,20 @@ class Product(models.Model):
     name = models.CharField()
     amazon_url = models.CharField()
     photo_url = models.CharField()
+    price = models.FloatField()
     listed = models.BooleanField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'product'
 
 
 class Review(models.Model):
-    review_id = models.UUIDField(primary_key=True)
+    review_id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     order = models.ForeignKey(Order, models.DO_NOTHING, db_column='order')
     rating = models.IntegerField()
     review = models.CharField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'review'

@@ -1,0 +1,4 @@
+insert into public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined)
+values  (1, 'pbkdf2_sha256$720000$5HL3poC6vcoWpkpjWNBC5U$C/TH2d8/nQGdW3ABmi/1nbr2MwqZO2diiAn1dCCayHw=', '2024-06-11 18:26:07.339397 +00:00', true, 'admin', '', '', 'admin@admin.adm', true, true, '2024-06-11 18:26:03.886786 +00:00'),
+        (2, 'pbkdf2_sha256$720000$DZfuSq7PwhQ2EODVWFbHo9$1+RNwE/NUUmbVSdb9INS6t6dM96bRaBblBiYi2C4ESs=', '2024-06-11 18:43:24.507790 +00:00', false, 'owner', '', '', '', false, true, '2024-06-11 18:26:37.000000 +00:00'),
+        (3, 'pbkdf2_sha256$720000$jNmpzaor5GZzvnBvTgNb87$+bRfxJTTx9Ruz+mK1HDd3+oi2fJZ8cozNNC2dKLDx2g=', '2024-06-11 18:47:15.593013 +00:00', false, 'client', '', '', '', false, true, '2024-06-11 18:26:49.893374 +00:00');

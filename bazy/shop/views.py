@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
-from shop.models import Product, Order, AuthUser
+from shop.models import Product, Order, AuthUser, Review
 import json
 from django.db import connection
 
@@ -27,6 +27,16 @@ def list(request, product_id):
     product.save()
     next = request.POST.get('next', '/')
     return HttpResponseRedirect(next)
+
+def review(request, order_id):
+    order = Order.objects.get(order_id = order_id)
+    rat = int(request.POST.get("rating"))
+    rev_text = request.POST.get("review")
+    rev = Review(order = order, rating = rat, review = rev_text)
+    rev.save()
+    next = request.POST.get('next', '/')
+    return HttpResponseRedirect(next)
+
 
 def month_recommendation(month:str):
     query_text = f"""
@@ -67,4 +77,10 @@ def owner_panel(request):
         "recommendation": recommendation(),
     }
     return render(request, "owner_panel.html", context)
+def order_history(request):
+    orders = Order.objects.raw('SELECT * FROM "order" WHERE order_id not in (Select public.review."order" from "review")')
+    context = {
+        "orders": orders,
+    }
+    return render(request, "order_history.html", context)
 
